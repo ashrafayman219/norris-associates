@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 </head>
 <body>
     <!-- Navigation -->
@@ -24,8 +25,8 @@
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#faqs" class="nav-link">FAQs</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
@@ -38,7 +39,6 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-background"></div>
         <div class="container hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">
@@ -60,103 +60,470 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
+    <!-- Service Coverage Map Section -->
+    <section class="map-section">
         <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number" data-target="38">0</div>
-                    <div class="stat-label">Years of Excellence</div>
+            <div class="section-header">
+                <h2 class="section-title">Nationwide Expert Witness Services</h2>
+                <p class="section-subtitle">Serving clients across the United States with comprehensive forensic technology consulting and expert witness testimony</p>
+            </div>
+            
+            <div class="map-stats">
+                <div class="map-stat-card">
+                    <div class="map-stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </div>
+                    <div class="map-stat-number" data-map-target="50">0</div>
+                    <div class="map-stat-label">States Served</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-target="110">0</div>
-                    <div class="stat-label">Cases Handled</div>
+                
+                <div class="map-stat-card">
+                    <div class="map-stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <div class="map-stat-number" data-map-target="110">0</div>
+                    <div class="map-stat-label">Federal & State Cases</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-target="40">0</div>
-                    <div class="stat-label">Expert Testimonies</div>
+                
+                <div class="map-stat-card">
+                    <div class="map-stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <div class="map-stat-number" data-map-target="40">0</div>
+                    <div class="map-stat-label">Expert Testimonies</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-target="100">0</div>
-                    <div class="stat-label">Years Combined Experience</div>
+                
+                <div class="map-stat-card">
+                    <div class="map-stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="map-stat-number">$1.7B</div>
+                    <div class="map-stat-label">Landmark Victory</div>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <div id="coverageMap" class="coverage-map"></div>
+                
+                <!-- Custom Map Controls -->
+                <div class="map-controls">
+                    <button class="map-control-btn" id="mapZoomIn" title="Zoom In">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                    <button class="map-control-btn" id="mapZoomOut" title="Zoom Out">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                    <button class="map-control-btn" id="mapReset" title="Reset View">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="map-legend">
+                    <div class="legend-title">Case Locations</div>
+                    <div class="legend-items">
+                        <div class="legend-item">
+                            <span class="legend-icon">★</span>
+                            <span class="legend-label">Major Court Cases</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-highlights">
+                <div class="highlight-card">
+                    <h4>Federal Court Experience</h4>
+                    <p>Extensive testimony in U.S. Federal District Courts including landmark cases</p>
+                </div>
+                <div class="highlight-card">
+                    <h4>State Court Expertise</h4>
+                    <p>Qualified expert witness in multiple state jurisdictions across the country</p>
+                </div>
+                <div class="highlight-card">
+                    <h4>Rapid Response</h4>
+                    <p>Available for urgent consultations and testimony nationwide</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services-section" id="services">
+    <!-- Case Story Panel -->
+    <div class="case-story-panel" id="caseStoryPanel">
+        <button class="story-close" id="storyClose">&times;</button>
+        <div class="story-content" id="storyContent">
+            <!-- Story content will be injected here -->
+        </div>
+    </div>
+
+    <!-- Affiliations Section -->
+    <section class="affiliations-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Our Service Areas</h2>
+                <h2 class="section-title">Affiliations</h2>
+                <p class="section-subtitle">We are proud of our affiliations with these organizations and agencies</p>
+            </div>
+            <div class="affiliations-grid">
+                <div class="affiliation-logo">
+                    <a href="https://www.caala.org/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/CAALA-Logo.png" alt="CAALA" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://lacba.org/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/LACBA_Wikipedia.jpg" alt="LACBA" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://www.acfe.com/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/ACFE-Logo.jpg" alt="ACFE" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://www.aaas.org/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/AAAS-300x206.png" alt="AAAS" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://www.asashop.org/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/ASAlogo.jpg" alt="ASA" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://www.ase.com/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/ASElogo.png" alt="ASE" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://wp.nastf.org/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/NASFTlogo.jpg" alt="NASTF" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://www.facebook.com/IAPASB/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/IAPAlogo-300x110.jpg" alt="IAPA" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://www.ieee.org/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/IEEE-300x150.png" alt="IEEE" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://www.ascca.com/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/ASCCAlogo.jpg" alt="ASCCA" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://www.pmi.org/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/pmi_logo_ogShare-300x99.png" alt="PMI" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://ausa.org/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/AUSA_Logo-300x300.jpg" alt="AUSA" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://www.autopsy.com/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/Autopsy-300x71.png" alt="Autopsy" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://www.magnetforensics.com/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/MagnetForenics-300x265.png" alt="Magnet Forensics" loading="lazy">
+                    </a>
+                </div>
+                <div class="affiliation-logo">
+                    <a href="https://www.exterro.com/forensic-toolkit/" target="_blank" rel="noopener noreferrer">
+                        <img src="./assets/ExterroFTKLogo-300x158.jpg" alt="Exterro FTK" loading="lazy">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Areas Section -->
+    <section class="service-areas-section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Service Areas</h2>
                 <p class="section-subtitle">Comprehensive technology consulting and expert witness services across multiple disciplines</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                        </svg>
+            <div class="service-areas-grid">
+                <!-- 1. Cell Phone -->
+                <div class="service-area-item" data-modal="cellphone">
+                    <div class="service-area-image">
+                        <img src="./assets/81SSw14XZHL._AC_SL1500_-151x300.jpg" alt="Cell Phone" loading="lazy">
                     </div>
-                    <h3 class="service-title">Computer Forensics</h3>
-                    <p class="service-description">Expert analysis of digital evidence, data recovery, and forensic examination of computer systems, storage devices, and digital communications.</p>
+                    <h3 class="service-area-name">Cell Phone</h3>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                        </svg>
+                <!-- 2. GPS -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/GPS-300x200.png" alt="GPS" loading="lazy">
                     </div>
-                    <h3 class="service-title">GIS & GPS Analysis</h3>
-                    <p class="service-description">Geographic information systems analysis, GPS tracking investigation, spatial data analysis, and location-based evidence examination.</p>
+                    <h3 class="service-area-name">GPS</h3>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                        </svg>
+                <!-- 3. Email -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/Gmail-157x300.png" alt="Email" loading="lazy">
                     </div>
-                    <h3 class="service-title">Software Analysis</h3>
-                    <p class="service-description">Software functionality assessment, code review, intellectual property analysis, and software defect investigation.</p>
+                    <h3 class="service-area-name">Email</h3>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                        </svg>
+                <!-- 4. Text Messages -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/TextMessages-182x300.png" alt="Text Messages" loading="lazy">
                     </div>
-                    <h3 class="service-title">Video & Image Analysis</h3>
-                    <p class="service-description">Forensic video enhancement, image authentication, metadata analysis, and multimedia evidence examination.</p>
+                    <h3 class="service-area-name">Text Messages</h3>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        </svg>
+                <!-- 5. Social Media -->
+                <div class="service-area-item">
+                    <div class="service-area-images-dual">
+                        <img src="./assets/Facebook-logo-300x300.png" alt="Facebook" loading="lazy">
+                        <img src="./assets/Twitter-X-292x300.png" alt="Twitter/X" loading="lazy">
                     </div>
-                    <h3 class="service-title">Cybersecurity</h3>
-                    <p class="service-description">Security breach investigation, vulnerability assessment, network forensics, and cyber incident analysis.</p>
+                    <h3 class="service-area-name">Social Media</h3>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                        </svg>
+                <!-- 6. Computers and Drives - WIDE ITEM -->
+                <div class="service-area-item service-area-wide">
+                    <div class="service-area-images-dual">
+                        <img src="./assets/DriveCopy.png" alt="Drive Copy" loading="lazy">
+                        <img src="./assets/LaptopTeardonw.png" alt="Laptop Teardown" loading="lazy">
                     </div>
-                    <h3 class="service-title">Accident Reconstruction</h3>
-                    <p class="service-description">Technical analysis of vehicle accidents, aircraft incidents, and other engineering failures using advanced simulation and modeling.</p>
+                    <h3 class="service-area-name">Computers and Drives, Including Damaged Drives</h3>
+                </div>
+                
+                <!-- 7. Fraud and Data Hacks -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/ecommerce-fraud-arm-out-of-screen-feature.jpg" alt="Fraud and Data Hacks" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">Fraud and Data Hacks</h3>
+                </div>
+                
+                <!-- 8. Auto and Truck Accidents - WIDE ITEM -->
+                <div class="service-area-item service-area-wide">
+                    <div class="service-area-images-dual">
+                        <img src="./assets/IMG_0768-scaled.jpg" alt="Auto Accident Analysis" loading="lazy">
+                        <img src="./assets/IMG_0728-scaled.jpg" alt="Truck Accident Analysis" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">Auto and Truck Accidents and Forensics</h3>
+                </div>
+                
+                <!-- 9. Security Camera Systems -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/SecurityCamera.png" alt="Security Camera Systems" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">Security Camera Systems Including Data Recovery From Damaged Devices</h3>
+                </div>
+                
+                <!-- 10. Forensic Analysis of Video/Audio -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/Example1SelectionwithTime.png" alt="Forensic Analysis of Video and Audio" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">Forensic Analysis of Video and Audio Data</h3>
+                </div>
+                
+                <!-- 11. Analysis of Photographs and Metadata -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/MIT-Metadata-Encryption-01_0.jpg" alt="Analysis of Photographs and Metadata" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">Analysis of Photographs and Metadata</h3>
+                </div>
+                
+                <!-- 12. Photogrammetry - WIDE ITEM -->
+                <div class="service-area-item service-area-wide">
+                    <div class="service-area-image">
+                        <img src="./assets/Photogrammetry.jpg" alt="Photogrammetry" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">Photogrammetry – Measurements Made from Photos and Videos</h3>
+                </div>
+                
+                <!-- 13. Forensic Animation Videos - WIDE ITEM -->
+                <div class="service-area-item service-area-wide">
+                    <div class="service-area-image">
+                        <img src="./assets/InjuryVideo.png" alt="Forensic Animation Videos" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">Forensic Animation Videos: Re-Creating Critical Events Based on Forensic Data</h3>
+                </div>
+                
+                <!-- 14. LiDAR -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/LiDAR.png" alt="LiDAR" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">LiDAR</h3>
+                </div>
+                
+                <!-- 15. General Aviation -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/AircraftCrash.png" alt="General Aviation" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">General Aviation</h3>
+                </div>
+                
+                <!-- 16. Business Analysis and Valuations -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/BusinessAnalysis.png" alt="Business Analysis and Valuations" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">Business Analysis and Valuations</h3>
+                </div>
+                
+                <!-- 17. Patents -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/patents800.jpg" alt="Patents" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">Patents</h3>
+                </div>
+                
+                <!-- 18. Software Copyrights -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/Copyright-Protection-for-Software.png" alt="Software Copyrights" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">Software Copyrights</h3>
+                </div>
+                
+                <!-- 19. Human Terrain Mapping -->
+                <div class="service-area-item">
+                    <div class="service-area-image">
+                        <img src="./assets/maxresdefault.jpg" alt="Human Terrain Mapping" loading="lazy">
+                    </div>
+                    <h3 class="service-area-name">Human Terrain Mapping</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Modal -->
+    <div class="service-modal" id="serviceModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-content">
+                <div class="modal-image-container">
+                    <img id="modalImage" src="" alt="">
+                </div>
+                <div class="modal-text">
+                    <h2 id="modalTitle"></h2>
+                    <div id="modalDescription"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Member Modal -->
+    <div class="service-modal" id="teamModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+            <button class="modal-close" id="teamModalClose">&times;</button>
+            <div class="modal-content">
+                <div class="modal-text" style="padding: 3rem;">
+                    <h2 id="teamModalTitle"></h2>
+                    <div id="teamModalDescription"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQs Section -->
+    <section class="faqs-section" id="faqs">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">FAQs</h2>
+            </div>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Why is forensic imaging of computer drives vital?</span>
+                        <svg class="accordion-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content">
+                        <p>GLAD YOU ASKED! Computers store a lot of information you don't see. That information is called "Metadata", which means "Data about data". The easiest way to think of metadata is to consider a normal book, with a title page, the name of the author, the publisher, the table of contents, and the chapter and page numbers. Those are all examples of metadata. Only the contents of the book is actually "data". The metadata helps you understand items about the book, but it's not the actual book.</p>
+                        <p>In any legal scenario, the metadata can be as valuable – if not more valuable – than the actual data itself. And even the simple process of starting a computer that contains a drive about which there are questions, or of viewing a file, introduces new metadata. If the computer or its drive are evidence, that's the equivalent of handling a piece of DNA evidence without gloves!</p>
+                        <p>Computer forensic specialists like us and our colleagues create a bit-by-bit copy of the untouched evidence drive by connecting the evidence drive, powered down, to a forensic copying device certified by the FBI, NIST, or the Department of Justice as electronically unable to make changes to the evidence drive. The forensic copier then creates that identical copy on a new, blank drive.</p>
+                        <p>At our lab, we refer to that first copy as a "Golden Master", borrowing a term from the software industry. We also go one step further. We next make a second forensic copy of the Golden Master forensic copy, which we refer to as a "Working Copy". We store the Golden Master securely. Its only purpose going forward would be to generate additional Working Copies.</p>
+                        <p>We perform all our analysis on Working Copies.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>What is "Digital Fingerprinting", and why do I need to know?</span>
+                        <svg class="accordion-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content">
+                        <p>A "Digital Fingerprint", also known as a "Checksum" or "Hash", is a mathematic process that's akin to magic! It's a way to tell for certain that a piece of digital evidence has not been tampered with.</p>
+                        <p>Skipping the details, the process is that the investigator simply runs a computer algorithm on a digital evidence item, and the algorithm produces a 32-character string consisting of numbers and letters [technically, a 32-digit hexadecimal number] that is unique to the evidence item but cannot be used to re-create the evidence item itself. So, if you create a hash of, say, Fyodor Dostoyevsky's War and Peace, and then changed, for example, a comma somewhere to a period, the resulting modified book would produce a hash totally unlike the first one.</p>
+                        <p>Hashes are used all the time in computer forensics to insure the integrity of evidence.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Please talk to me about Chain of Custody</span>
+                        <svg class="accordion-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Just as with fingerprints, DNA samples, and other evidence, digital evidence requires a chain of custody to insure the level of integrity demanded by modern legal systems. Just as each of the types of traditional evidence has its own special rules for evidence handling and chain of custody, so does digital evidence.</p>
+                        <p>Unlike traditional evidence, however, it's often possible to create exact copies of digital evidence, using hashes to insure fidelity. It's also important to keep digital evidence in an organized file system to avoid confusion.</p>
+                        <p>Also, digital evidence can be corrupted simply by viewing it, since file systems generally change the metadata associated with files and devices. Further, device batteries can die, producing unexpected results when they start up again with new batteries.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>A former employee left and took my customer list. What should I do?</span>
+                        <svg class="accordion-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Welcome to the wonderful, exciting world of theft of Trade Secrets! While we are NOT attorneys [and we don't even play them on television], we work with this stuff all the time, and here are our take-aways.</p>
+                        <p>Of the four classes of intellectual property – Patents, Copyrights, Trademarks, and Trade Secrets – only one, Trade Secrets, carries potential criminal penalties for misappropriation ["theft of Trade Secrets"], although that is extremely rare. By far the most common form of Trade Secret theft is the theft of customer lists.</p>
+                        <p>Theft of Trade Secret cases generally require financial analysis in order to determine a fair value for recovery, potentially including unjust enrichment as well as other damages. Our senior staff includes a trained accountant who took a firm public under the rules of the US Securities and Exchange Commission as its CFO.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -165,132 +532,56 @@
     <!-- About Section -->
     <section class="about-section" id="about">
         <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">Why Choose Norris Associates</h2>
-                    <p class="about-description">Since 1986, Norris Associates Technologies has been the trusted partner for attorneys, corporations, and government agencies requiring expert technology consulting and witness testimony.</p>
-                    <div class="about-features">
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg>
-                            </div>
-                            <div class="feature-text">
-                                <h4>Proven Track Record</h4>
-                                <p>More than 110 cases in state and federal courts, including a 10-figure courtroom victory</p>
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg>
-                            </div>
-                            <div class="feature-text">
-                                <h4>Experienced Scientists</h4>
-                                <p>Our team brings over 100 years of collective expertise in their respective fields</p>
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg>
-                            </div>
-                            <div class="feature-text">
-                                <h4>Nationwide Service</h4>
-                                <p>Serving clients across the United States with comprehensive technology consulting services</p>
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg>
-                            </div>
-                            <div class="feature-text">
-                                <h4>Confidential & Professional</h4>
-                                <p>Every case receives the utmost confidentiality and professional attention</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div class="image-card">
-                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=1000&fit=crop" alt="Professional consulting" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section class="experience-section" id="experience">
-        <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Areas of Expertise</h2>
-                <p class="section-subtitle">Our specialists have extensive experience across multiple industries and technologies</p>
+                <h2 class="section-title">About Us</h2>
             </div>
-            <div class="expertise-grid">
-                <div class="expertise-item">Digital Forensics</div>
-                <div class="expertise-item">E-Discovery</div>
-                <div class="expertise-item">Data Recovery</div>
-                <div class="expertise-item">Network Security</div>
-                <div class="expertise-item">GPS/GIS Analysis</div>
-                <div class="expertise-item">Video Analysis</div>
-                <div class="expertise-item">Mobile Forensics</div>
-                <div class="expertise-item">Software Engineering</div>
-                <div class="expertise-item">Database Analysis</div>
-                <div class="expertise-item">Email Investigation</div>
-                <div class="expertise-item">Social Media Forensics</div>
-                <div class="expertise-item">Accident Reconstruction</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Trusted by Legal Professionals</h2>
-                <p class="section-subtitle">What our clients say about our services</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"></path>
-                        </svg>
+            <div class="team-grid">
+                <!-- Wayne B. Norris -->
+                <div class="team-member">
+                    <div class="team-member-image">
+                        <img src="./assets/WBNHeadShotSmiling.png" alt="Wayne B. Norris" loading="lazy">
                     </div>
-                    <p class="testimonial-text">"The level of technical expertise and clarity in presenting complex forensic evidence was exceptional. Norris Associates was instrumental in our case success."</p>
-                    <div class="testimonial-author">
-                        <strong>Senior Partner</strong>
-                        <span>Major Law Firm</span>
+                    <h3 class="team-member-name">Wayne B. Norris</h3>
+                    <p class="team-member-title">Principal Scientist</p>
+                    <div class="team-member-bio">
+                        <p>Wayne has a broad range of experience in numerous technical and non-technical disciplines.</p>
+                        <p>Wayne has served as an expert witness in more than 110 cases since 1986 in State and Federal courts, including the $1.7 billion Microsoft et al vs Commissioner of Internal Revenue from 1997-99, where he served as the US Government's chief expert witness in software development.</p>
+                    </div>
+                    <div class="team-member-actions">
+                        <button class="btn btn-primary btn-sm read-more-btn" data-member="wayne">Read More</button>
+                        <a href="./assets/2023-08-08-WayneBNorris-ExpertWitness-CV.pdf" class="btn btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">Download CV / Resume</a>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"></path>
-                        </svg>
+                
+                <!-- Robert Ayers -->
+                <div class="team-member">
+                    <div class="team-member-image">
+                        <img src="./assets/RobertPhoto-Passport-Photo1.jpg" alt="Robert Ayers" loading="lazy">
                     </div>
-                    <p class="testimonial-text">"Professional, thorough, and incredibly knowledgeable. Their analysis provided the crucial evidence we needed to support our client's position."</p>
-                    <div class="testimonial-author">
-                        <strong>Trial Attorney</strong>
-                        <span>Corporate Legal Department</span>
+                    <h3 class="team-member-name">Robert Ayers</h3>
+                    <p class="team-member-title">Senior Analyst</p>
+                    <div class="team-member-bio">
+                        <p>Robert Ayers, prior to becoming an Expert Witness and joining Norris-Technologies and Associates, was President and CEO of Golden Reflections, Ayers Automotive Repairs, a premiere automotive services business in Santa Barbara, California for 43 years.</p>
+                    </div>
+                    <div class="team-member-actions">
+                        <button class="btn btn-primary btn-sm read-more-btn" data-member="robert">Read More</button>
+                        <a href="./assets/RCA-Resume.2.pdf" class="btn btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">Download CV / Resume</a>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"></path>
-                        </svg>
+                
+                <!-- Nikki Ayers -->
+                <div class="team-member">
+                    <div class="team-member-image">
+                        <img src="./assets/NikkiPhoto-www.madphoto.com05-1.jpg" alt="Nikki Ayers" loading="lazy">
                     </div>
-                    <p class="testimonial-text">"Outstanding expert witness testimony. Their ability to explain technical concepts clearly and withstand cross-examination was remarkable."</p>
-                    <div class="testimonial-author">
-                        <strong>Managing Partner</strong>
-                        <span>Litigation Specialist</span>
+                    <h3 class="team-member-name">Nikki Ayers</h3>
+                    <p class="team-member-title">Senior Analyst</p>
+                    <div class="team-member-bio">
+                        <p>Nikki Ayers, prior to joining Norris-Technologies and Associates, was the CFO of Golden Reflections, Ayers Automotive Repairs, a premier automotive services company in Santa Barbara, California for 43 years. Mrs. Ayers managed the operations and HR aspects of the business.</p>
+                    </div>
+                    <div class="team-member-actions">
+                        <button class="btn btn-primary btn-sm read-more-btn" data-member="nikki">Read More</button>
+                        <a href="./assets/NikkiAyers-CV-01-Placeholder.pdf" class="btn btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">Download CV / Resume</a>
                     </div>
                 </div>
             </div>
@@ -384,51 +675,101 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-col">
+                <div class="footer-col footer-col-main">
                     <div class="footer-logo">
                         <img src="./assets/NA-Logo-4-Big-300x300.png" alt="Norris Associates Logo">
                         <h3>Norris Associates Technologies, LLC</h3>
                     </div>
                     <p class="footer-tagline">Because Accuracy Matters™</p>
                     <p class="footer-description">Expert technology consulting and witness services since 1986.</p>
+                    
+                    <div class="footer-address">
+                        <div class="footer-address-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            </svg>
+                            <span>2534 Murrell Road</span>
+                        </div>
+                        <div class="footer-address-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Santa Barbara, CA 93109-1859 USA</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contact Information</h4>
+                    <ul class="footer-links footer-contact-list">
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <a href="tel:+18059627703">+1-805-962-7703 VOICE</a>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 17H2a3 3 0 0 0 3-3V5a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v9a3 3 0 0 0 3 3zm0 0v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2"></path>
+                            </svg>
+                            <span>+1-805-456-2169 SECURE FAX</span>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <a href="mailto:wayne@norris-associates.com">wayne@norris-associates.com</a>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <a href="https://www.norris-associates.com" target="_blank" rel="noopener noreferrer">www.norris-associates.com</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Service Areas</a></li>
+                        <li><a href="#faqs">FAQs</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
                 </div>
                 
                 <div class="footer-col">
                     <h4>Services</h4>
                     <ul class="footer-links">
-                        <li><a href="#services">Computer Forensics</a></li>
-                        <li><a href="#services">GIS & GPS Analysis</a></li>
-                        <li><a href="#services">Software Analysis</a></li>
-                        <li><a href="#services">Video Analysis</a></li>
-                        <li><a href="#services">Cybersecurity</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Company</h4>
-                    <ul class="footer-links">
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#experience">Experience</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#contact">Free Case Review</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul class="footer-links">
-                        <li><a href="tel:+18059627703">+1-805-962-7703</a></li>
-                        <li><a href="mailto:Wayne@Norris-Associates.com">Wayne@Norris-Associates.com</a></li>
+                        <li><a href="#services">Digital Forensics</a></li>
+                        <li><a href="#services">Mobile Device Analysis</a></li>
+                        <li><a href="#services">Video & Audio Forensics</a></li>
+                        <li><a href="#services">Automotive Forensics</a></li>
+                        <li><a href="#services">Expert Witness Testimony</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2026 Norris Associates Technologies, LLC. All rights reserved.</p>
+                <p>&copy; 2026 Norris Associates Technologies, LLC. All rights reserved. | Because Accuracy Matters™</p>
             </div>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="script.js"></script>
 </body>
 </html>
