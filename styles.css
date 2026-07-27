@@ -2155,7 +2155,7 @@ body {
 .footer-address-item svg {
     flex-shrink: 0;
     margin-top: 0.15rem;
-    color: var(--accent-teal);
+    /* color: var(--accent-teal); */
 }
 
 .footer-col h4 {
@@ -2197,7 +2197,7 @@ body {
 .footer-contact-list svg {
     flex-shrink: 0;
     margin-top: 0.15rem;
-    color: var(--accent-teal);
+    /* color: var(--accent-teal); */
 }
 
 .footer-contact-list a,
