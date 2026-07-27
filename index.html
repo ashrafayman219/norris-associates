@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Norris Associates Technologies - Expert Technology Consulting & Expert Witness Services. Because Accuracy Matters™">
+    <title>Norris Associates Technologies, LLC – Because Accuracy Matters™</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="./assets/NA-Logo-4-Big-300x300.png" alt="Norris Associates Logo">
+                <div class="logo-text">
+                    <span class="company-name">Norris Associates</span>
+                    <span class="tagline">Because Accuracy Matters™</span>
+                </div>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="hero-title-line">Expert Technology</span>
+                    <span class="hero-title-line">Consulting Services</span>
+                </h1>
+                <p class="hero-subtitle">Delivering precision engineering analysis and expert witness testimony since 1986. Our scientists bring over 100 years of collective experience to your case.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get Free Case Review</a>
+                    <a href="#services" class="btn btn-secondary">Explore Services</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span>Scroll to explore</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="38">0</div>
+                    <div class="stat-label">Years of Excellence</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="110">0</div>
+                    <div class="stat-label">Cases Handled</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="40">0</div>
+                    <div class="stat-label">Expert Testimonies</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">Years Combined Experience</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Service Areas</h2>
+                <p class="section-subtitle">Comprehensive technology consulting and expert witness services across multiple disciplines</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Computer Forensics</h3>
+                    <p class="service-description">Expert analysis of digital evidence, data recovery, and forensic examination of computer systems, storage devices, and digital communications.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">GIS & GPS Analysis</h3>
+                    <p class="service-description">Geographic information systems analysis, GPS tracking investigation, spatial data analysis, and location-based evidence examination.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Software Analysis</h3>
+                    <p class="service-description">Software functionality assessment, code review, intellectual property analysis, and software defect investigation.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Video & Image Analysis</h3>
+                    <p class="service-description">Forensic video enhancement, image authentication, metadata analysis, and multimedia evidence examination.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Cybersecurity</h3>
+                    <p class="service-description">Security breach investigation, vulnerability assessment, network forensics, and cyber incident analysis.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Accident Reconstruction</h3>
+                    <p class="service-description">Technical analysis of vehicle accidents, aircraft incidents, and other engineering failures using advanced simulation and modeling.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Why Choose Norris Associates</h2>
+                    <p class="about-description">Since 1986, Norris Associates Technologies has been the trusted partner for attorneys, corporations, and government agencies requiring expert technology consulting and witness testimony.</p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Proven Track Record</h4>
+                                <p>More than 110 cases in state and federal courts, including a 10-figure courtroom victory</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Experienced Scientists</h4>
+                                <p>Our team brings over 100 years of collective expertise in their respective fields</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Nationwide Service</h4>
+                                <p>Serving clients across the United States with comprehensive technology consulting services</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Confidential & Professional</h4>
+                                <p>Every case receives the utmost confidentiality and professional attention</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-card">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=1000&fit=crop" alt="Professional consulting" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience-section" id="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Areas of Expertise</h2>
+                <p class="section-subtitle">Our specialists have extensive experience across multiple industries and technologies</p>
+            </div>
+            <div class="expertise-grid">
+                <div class="expertise-item">Digital Forensics</div>
+                <div class="expertise-item">E-Discovery</div>
+                <div class="expertise-item">Data Recovery</div>
+                <div class="expertise-item">Network Security</div>
+                <div class="expertise-item">GPS/GIS Analysis</div>
+                <div class="expertise-item">Video Analysis</div>
+                <div class="expertise-item">Mobile Forensics</div>
+                <div class="expertise-item">Software Engineering</div>
+                <div class="expertise-item">Database Analysis</div>
+                <div class="expertise-item">Email Investigation</div>
+                <div class="expertise-item">Social Media Forensics</div>
+                <div class="expertise-item">Accident Reconstruction</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Trusted by Legal Professionals</h2>
+                <p class="section-subtitle">What our clients say about our services</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"></path>
+                        </svg>
+                    </div>
+                    <p class="testimonial-text">"The level of technical expertise and clarity in presenting complex forensic evidence was exceptional. Norris Associates was instrumental in our case success."</p>
+                    <div class="testimonial-author">
+                        <strong>Senior Partner</strong>
+                        <span>Major Law Firm</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"></path>
+                        </svg>
+                    </div>
+                    <p class="testimonial-text">"Professional, thorough, and incredibly knowledgeable. Their analysis provided the crucial evidence we needed to support our client's position."</p>
+                    <div class="testimonial-author">
+                        <strong>Trial Attorney</strong>
+                        <span>Corporate Legal Department</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"></path>
+                        </svg>
+                    </div>
+                    <p class="testimonial-text">"Outstanding expert witness testimony. Their ability to explain technical concepts clearly and withstand cross-examination was remarkable."</p>
+                    <div class="testimonial-author">
+                        <strong>Managing Partner</strong>
+                        <span>Litigation Specialist</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2 class="section-title">Get Your Free Case Review</h2>
+                    <p class="contact-description">Discuss your case confidentially with our expert team. We're here to help you understand your options.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Phone</h4>
+                                <a href="tel:+18059627703">+1-805-962-7703</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <a href="mailto:Wayne@Norris-Associates.com">Wayne@Norris-Associates.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Response Time</h4>
+                                <p>Within 24 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Case Details</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="./assets/NA-Logo-4-Big-300x300.png" alt="Norris Associates Logo">
+                        <h3>Norris Associates Technologies, LLC</h3>
+                    </div>
+                    <p class="footer-tagline">Because Accuracy Matters™</p>
+                    <p class="footer-description">Expert technology consulting and witness services since 1986.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">Computer Forensics</a></li>
+                        <li><a href="#services">GIS & GPS Analysis</a></li>
+                        <li><a href="#services">Software Analysis</a></li>
+                        <li><a href="#services">Video Analysis</a></li>
+                        <li><a href="#services">Cybersecurity</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#contact">Free Case Review</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:+18059627703">+1-805-962-7703</a></li>
+                        <li><a href="mailto:Wayne@Norris-Associates.com">Wayne@Norris-Associates.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Norris Associates Technologies, LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
